@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class School {
     
-    private List<Subject> subjectList;Ę
+    private List<Subject> subjectList;
     
     public School() {
         generateSubjectList();
