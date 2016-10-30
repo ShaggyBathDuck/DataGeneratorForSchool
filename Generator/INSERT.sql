@@ -1,0 +1,15 @@
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Matematyka', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Język polski', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Fizyka', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Biologia', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Wiedza o kulturze', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Historia', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Wiedza o społeczeństwie', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Podstawy przedsiębiorczości', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Geografia', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Chemia', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Informatyka', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Wychowanie fizyczne', 'język polski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('English', 'język angielski');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('Deutsch', 'język niemiecki');
+INSERT INTO Przedmiot (Nazwa przedmiotu, Język prowadzenia) VALUES ('русский', 'język rosyjski');
