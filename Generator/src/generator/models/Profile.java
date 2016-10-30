@@ -7,6 +7,8 @@ package generator.models;
 public class Profile {
     
     private String name;
+    //rozszerzone przedmioty
+    private Map<String,int[]> advancedSubjects;
 
     public String getName() {
         return name;
