@@ -27,4 +27,12 @@ public class Profile {
     public void setAdvancedSubjects(Map<String, int[]> advancedSubjects) {
         this.advancedSubjects = advancedSubjects;
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "name='" + name + '\'' +
+                ", advancedSubjects=" + advancedSubjects +
+                '}';
+    }
 }

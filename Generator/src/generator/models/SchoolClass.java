@@ -59,5 +59,15 @@ public class SchoolClass {
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
-    
+
+    @Override
+    public String toString() {
+        return "SchoolClass{" +
+                "ID=" + ID +
+                ", studentsNumber=" + studentsNumber +
+                ", startYear=" + startYear +
+                ", name=" + name +
+                ", profile=" + profile +
+                '}';
+    }
 }

@@ -29,6 +29,12 @@ public class Subject {
     public void setLanguage(String language) {
         this.language = language;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "name='" + name + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }
