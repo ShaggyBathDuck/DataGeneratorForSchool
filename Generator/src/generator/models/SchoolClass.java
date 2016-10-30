@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package generator.models;
 
 /**
@@ -16,6 +11,14 @@ public class SchoolClass {
     private int startYear;
     private char name;
     private Profile profile;
+
+    public SchoolClass(int ID, int studentsNumber, int startYear, char name, Profile profile) {
+        this.ID = ID;
+        this.studentsNumber = studentsNumber;
+        this.startYear = startYear;
+        this.name = name;
+        this.profile = profile;
+    }
 
     public int getID() {
         return ID;
