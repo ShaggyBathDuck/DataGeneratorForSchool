@@ -23,7 +23,8 @@ public class PersonalDataGenerator {
     private Random random;
 
     public PersonalDataGenerator(){
-        List listOfArrays=new ArrayList<String[]>(5);
+        /*
+
         String[] csvFiles = {"zenskie.csv", "meskie.csv", "nazwiska.csv", "miasta.csv", "ulice.csv"};
         BufferedReader br = null;
         String line = "";
@@ -48,7 +49,8 @@ public class PersonalDataGenerator {
                     }
                 }
             }
-        }
+        }*/
+        List listOfArrays=DataReader.readDataFiles();
         womansNames=(String[])listOfArrays.get(0);
         mansNames=(String[])listOfArrays.get(1);
         surnames=(String[])listOfArrays.get(2);

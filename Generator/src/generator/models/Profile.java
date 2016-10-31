@@ -1,5 +1,6 @@
 package generator.models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,6 +12,15 @@ public class Profile {
     private String name;
     //rozszerzone przedmioty
     private Map<String,int[]> advancedSubjects;
+
+    public Profile(String name) {
+        this.name = name;
+        this.advancedSubjects=new HashMap<>();
+    }
+
+    public void addAdvancedSubject(String name, int[]numberOfHours){
+        this.advancedSubjects.put(name,numberOfHours);
+    }
 
     public String getName() {
         return name;

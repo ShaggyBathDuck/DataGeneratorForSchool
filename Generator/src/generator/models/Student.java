@@ -12,7 +12,7 @@ public class Student extends Person {
     private String address;
 
     public Student(PersonalDataGenerator pdGenerator, SchoolClass schoolClass) {
-        super(16+ LocalDate.now().getYear()-schoolClass.getStartYear(),16+ LocalDate.now().getYear()-schoolClass.getStartYear(),pdGenerator);
+        super(14+ LocalDate.now().getYear()-schoolClass.getStartYear(),15+ LocalDate.now().getYear()-schoolClass.getStartYear(),pdGenerator);
         this.schoolClass=schoolClass;
         address= pdGenerator.getStreet() + " " + pdGenerator.getHouseNumber() + " "+ pdGenerator.getCity();
     }
