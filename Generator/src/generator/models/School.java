@@ -1,5 +1,7 @@
 package generator.models;
 
+import generator.DataReader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +12,23 @@ import java.util.List;
 public class School {
     
     private List<Subject> subjectList;
-    
+    private List<Profile> profilesList;
+
     public School() {
+        profilesList=generateProfilesList();
         generateSubjectList();
+
+
+
     }
-    
+
+
+
+    private List<Profile> generateProfilesList(){
+        return DataReader.readProfiles();
+    }
+
+
     private void generateSubjectList() {
         subjectList = new ArrayList();
         getSubjectList().add(new Subject("Matematyka", "język polski"));
@@ -37,5 +51,8 @@ public class School {
     public List<Subject> getSubjectList() {
         return subjectList;
     }
-    
+
+    public List<Profile> getProfilesList() {
+        return profilesList;
+    }
 }
