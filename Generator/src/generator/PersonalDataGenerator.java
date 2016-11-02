@@ -23,33 +23,6 @@ public class PersonalDataGenerator {
     private Random random;
 
     public PersonalDataGenerator(){
-        /*
-
-        String[] csvFiles = {"zenskie.csv", "meskie.csv", "nazwiska.csv", "miasta.csv", "ulice.csv"};
-        BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-        for(int i=0; i<5;i++){
-            try {
-                br = new BufferedReader(new FileReader(csvFiles[i]));
-                while ((line = br.readLine()) != null) {
-                    listOfArrays.add(line.split(cvsSplitBy));
-                }
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }*/
         List listOfArrays=DataReader.readDataFiles();
         womansNames=(String[])listOfArrays.get(0);
         mansNames=(String[])listOfArrays.get(1);

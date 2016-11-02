@@ -1,9 +1,9 @@
 package generator.models;
 
 import generator.DataReader;
+import generator.PersonalDataGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -13,16 +13,35 @@ public class School {
     
     private List<Subject> subjectList;
     private List<Profile> profilesList;
+    private List<Teacher> teacherList;
+
+    private PersonalDataGenerator personalDataGenerator;
 
     public School() {
+        personalDataGenerator = new PersonalDataGenerator();
         profilesList=generateProfilesList();
         generateSubjectList();
+        teacherList=generateTeacherList(this.subjectList);
+
 
 
 
     }
 
+    private List<Teacher> generateTeacherList(List<Subject> subjectList){
+        ArrayList<Teacher> teachers= new ArrayList<>(50);
+        Random random= new Random();
+        subjectList.forEach(subject -> {
+            int numberOfSubjectsTeachers= random.nextInt(9) +1;
+            for (int i=0; i<numberOfSubjectsTeachers; i++){
+                teachers.add(new Teacher(personalDataGenerator));
+            }
+        });
 
+
+
+        return teachers;
+    }
 
     private List<Profile> generateProfilesList(){
         return DataReader.readProfiles();
@@ -30,20 +49,23 @@ public class School {
 
 
     private void generateSubjectList() {
-        subjectList = new ArrayList();
+        subjectList = new ArrayList<>();
         getSubjectList().add(new Subject("Matematyka", "język polski"));
         getSubjectList().add(new Subject("Język polski", "język polski"));
+        getSubjectList().add(new Subject("Wychowanie fizyczne", "język polski"));
+        getSubjectList().add(new Subject("English", "język angielski"));
+
         getSubjectList().add(new Subject("Fizyka", "język polski"));
         getSubjectList().add(new Subject("Biologia", "język polski"));
+        getSubjectList().add(new Subject("Geografia", "język polski"));
+        getSubjectList().add(new Subject("Chemia", "język polski"));
+
         getSubjectList().add(new Subject("Wiedza o kulturze", "język polski"));
         getSubjectList().add(new Subject("Historia", "język polski"));
         getSubjectList().add(new Subject("Wiedza o społeczeństwie", "język polski"));
         getSubjectList().add(new Subject("Podstawy przedsiębiorczości", "język polski"));
-        getSubjectList().add(new Subject("Geografia", "język polski"));
-        getSubjectList().add(new Subject("Chemia", "język polski"));
+
         getSubjectList().add(new Subject("Informatyka", "język polski"));
-        getSubjectList().add(new Subject("Wychowanie fizyczne", "język polski"));
-        getSubjectList().add(new Subject("English", "język angielski"));
         getSubjectList().add(new Subject("Deutsch", "język niemiecki"));
         getSubjectList().add(new Subject("русский", "język rosyjski"));
     }
