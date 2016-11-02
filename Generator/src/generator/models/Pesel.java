@@ -44,6 +44,18 @@ public class Pesel {
         this.pesel = pesel;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Pesel pesel1 = (Pesel) o;
+        return this.toString().equals(pesel1.toString());
 
+    }
+
+    @Override
+    public int hashCode() {
+        return pesel.hashCode();
+    }
 }
 
