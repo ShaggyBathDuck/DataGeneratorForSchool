@@ -14,32 +14,34 @@ public class School {
     private List<Subject> subjectList;
     private List<Profile> profilesList;
     private List<Teacher> teacherList;
-
+    private Set<Pesel> pesels;
     private PersonalDataGenerator personalDataGenerator;
 
     public School() {
         personalDataGenerator = new PersonalDataGenerator();
         profilesList=generateProfilesList();
         generateSubjectList();
-        teacherList=generateTeacherList(this.subjectList);
+        pesels=new HashSet<>();
+        teacherList=generateTeacherListAddThemToPesels(this.subjectList, pesels, personalDataGenerator);
 
 
 
 
     }
 
-    private List<Teacher> generateTeacherList(List<Subject> subjectList){
+    private List<Teacher> generateTeacherListAddThemToPesels(final List<Subject> subjectList, Set<Pesel> pesels, PersonalDataGenerator personalDataGenerator){
         ArrayList<Teacher> teachers= new ArrayList<>(50);
         Random random= new Random();
         subjectList.forEach(subject -> {
             int numberOfSubjectsTeachers= random.nextInt(9) +1;
             for (int i=0; i<numberOfSubjectsTeachers; i++){
-                teachers.add(new Teacher(personalDataGenerator));
+                Teacher addedTeacher=new Teacher(personalDataGenerator);
+                if(!pesels.contains(addedTeacher.getPesel()))
+                    teachers.add(addedTeacher);
+                else
+                    i--;
             }
         });
-
-
-
         return teachers;
     }
 
