@@ -27,21 +27,24 @@ public class School {
         profilesList=generateProfilesList();
         generateSubjectList();
         pesels=new HashSet<>();
-        teacherList=generateTeacherListAddThemToPesels(this.subjectList, pesels, personalDataGenerator);
+        teacherList=generateTeacherListAddThemToPesels(this.subjectList, personalDataGenerator, pesels);
         schoolClassList=generateSchoolClasses(profilesList,2013);
         subjectRealizationList=generateSubjectRealizationList(subjectList,teacherList,schoolClassList);
         studentList=generateStudentListAddThemToPesels(personalDataGenerator,schoolClassList,pesels);
 
+
     }
-    private List<Teacher> generateTeacherListAddThemToPesels(final List<Subject> subjectList, Set<Pesel> pesels,final PersonalDataGenerator personalDataGenerator){
+    private List<Teacher> generateTeacherListAddThemToPesels(final List<Subject> subjectList,final PersonalDataGenerator personalDataGenerator, Set<Pesel> pesels){
         ArrayList<Teacher> teachers= new ArrayList<>(50);
         Random random = new Random();
         subjectList.forEach(subject -> {
             int numberOfSubjectsTeachers= random.nextInt(9) +1;
             for (int i=0; i<numberOfSubjectsTeachers; i++){
                 Teacher addedTeacher=new Teacher(personalDataGenerator, subject);
-                if(!pesels.contains(addedTeacher.getPesel()))
+                if(!pesels.contains(addedTeacher.getPesel())){
                     teachers.add(addedTeacher);
+                    pesels.add(addedTeacher.getPesel());
+                }
                 else
                     i--;
             }
@@ -123,14 +126,16 @@ public class School {
         schoolClasses.forEach(schoolClass ->{
             for(int i=0; i<schoolClass.getStudentsNumber();i++){
                 Student addedStudent=new Student(personalDataGenerator,schoolClass);
-                if(pesels.contains(addedStudent.getPesel()))
-                    i--;
-                else
+                if(!pesels.contains(addedStudent.getPesel())){
+                    pesels.add(addedStudent.getPesel());
                     students.add(addedStudent);
+                }else
+                    i--;
             }
         });
         return students;
     }
+
 
     public List<Subject> getSubjectList() {
         return subjectList;
@@ -150,5 +155,9 @@ public class School {
 
     public List<SubjectRealization> getSubjectRealizationList() {
         return subjectRealizationList;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
     }
 }

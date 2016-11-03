@@ -59,7 +59,7 @@ public class Person {
     private LocalDate generateDayOfBirth(int minAge, int maxAge){
         int year=random.nextInt(maxAge-minAge)+2016-maxAge;
         int day=random.nextInt(365)+1;
-        if(((year%4==0)&& (year % 100!=0))||(year %400==0))
+        if(LocalDate.of(year,1,1).isLeapYear())
             day=random.nextInt(366)+1;
         return LocalDate.ofYearDay(year,day);
     }
