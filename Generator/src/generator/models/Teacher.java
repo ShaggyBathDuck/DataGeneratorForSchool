@@ -14,10 +14,15 @@ public class Teacher extends Person {
     private final static int MIN_TEACHER_AGE=23;
     private final static int MAX_TEACHER_AGE=67;
     Random random = new Random();
-    public Teacher(PersonalDataGenerator pdGenerator) {
+    private Subject teachingSubject;
+    private int numberOfTeachingClass;
+
+    public Teacher(PersonalDataGenerator pdGenerator, Subject teachingSubject) {
         super(MIN_TEACHER_AGE,MAX_TEACHER_AGE,pdGenerator);
         academicDegree = generateAcademicDegree(LocalDate.now().getYear()-this.getDayOfBirth().getYear());
         jobStart=generateJobStart();
+        this.teachingSubject=teachingSubject;
+        this.numberOfTeachingClass=0;
     }
 
     public String getAcademicDegree() {
@@ -60,6 +65,25 @@ public class Teacher extends Person {
     }
     public String toString(){
         return super.toString()+" "+ academicDegree+" "+ jobStart;
-
     }
+
+    public Subject getTeachingSubject() {
+        return teachingSubject;
+    }
+
+    public void setTeachingSubject(Subject teachingSubject) {
+        this.teachingSubject = teachingSubject;
+    }
+
+    public int getNumberOfTeachingClass() {
+        return numberOfTeachingClass;
+    }
+
+    public void setNumberOfTeachingClass(int numberOfTeachingClass) {
+        this.numberOfTeachingClass = numberOfTeachingClass;
+    }
+    public void increaseNumberOfTeachingClass() {
+        this.numberOfTeachingClass ++;
+    }
+
 }

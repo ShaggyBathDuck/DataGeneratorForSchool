@@ -16,8 +16,10 @@ public class School {
     private List<Profile> profilesList;
     private List<Teacher> teacherList;
     private List<SchoolClass> schoolClassList;
+    private List<SubjectRealization> subjectRealizationList;
     private Set<Pesel> pesels;
     private PersonalDataGenerator personalDataGenerator;
+
 
     public School() {
         personalDataGenerator = new PersonalDataGenerator();
@@ -26,7 +28,7 @@ public class School {
         pesels=new HashSet<>();
         teacherList=generateTeacherListAddThemToPesels(this.subjectList, pesels, personalDataGenerator);
         schoolClassList=generateSchoolClasses(profilesList,2013);
-
+        subjectRealizationList=generateSubjectRealizationList(subjectList,teacherList,schoolClassList);
 
     }
     private List<Teacher> generateTeacherListAddThemToPesels(final List<Subject> subjectList, Set<Pesel> pesels,final PersonalDataGenerator personalDataGenerator){
@@ -35,7 +37,7 @@ public class School {
         subjectList.forEach(subject -> {
             int numberOfSubjectsTeachers= random.nextInt(9) +1;
             for (int i=0; i<numberOfSubjectsTeachers; i++){
-                Teacher addedTeacher=new Teacher(personalDataGenerator);
+                Teacher addedTeacher=new Teacher(personalDataGenerator, subject);
                 if(!pesels.contains(addedTeacher.getPesel()))
                     teachers.add(addedTeacher);
                 else
@@ -49,16 +51,14 @@ public class School {
        ArrayList<SchoolClass> schoolClasses=new ArrayList<>(25);
        Random random = new Random();
        int actualSchoolYear=LocalDate.now().getYear()- (LocalDate.now().getMonthValue()>9?1:0);
-       int schoolClassId=1;
        for (;startYearOfGenerating<=actualSchoolYear;startYearOfGenerating++){
            int numberOfClassOnYear=random.nextInt(3)+5;
            char className='A';
            Iterator profileIterator=profilesList.iterator();
            for(int i=0; i<numberOfClassOnYear;i++){
                 if(profileIterator.hasNext()){
-                    schoolClasses.add(new SchoolClass(schoolClassId,random.nextInt(11)+20,startYearOfGenerating,className,(Profile)profileIterator.next()));
+                    schoolClasses.add(new SchoolClass(schoolClasses.size()+1,random.nextInt(11)+20,startYearOfGenerating,className,(Profile)profileIterator.next()));
                     className++;
-                    schoolClassId++;
                 }else{
                     profileIterator=profilesList.iterator();
                     i--;
@@ -72,6 +72,28 @@ public class School {
         return DataReader.readProfiles();
     }
 
+    private List<SubjectRealization> generateSubjectRealizationList(final List<Subject> subjects,final List<Teacher> teachers, final List<SchoolClass> schoolClasses){
+        LinkedList<SubjectRealization> subjectRealizations= new LinkedList<>();
+        Random random= new Random();
+        Comparator<Teacher> numberOfTeachingLessonComparator=(t1,t2)->Integer.compare(t1.getNumberOfTeachingClass(), t2.getNumberOfTeachingClass());
+        schoolClasses.forEach(schoolClass -> {
+            subjects.forEach(subject -> {
+                String realizationMode="podstawowy";
+                int numberOfHours=random.nextInt(3)+2;
+                if(schoolClass.getProfile().getAdvancedSubjects().containsKey(subject.getName())){
+                    realizationMode="rozszerzony";
+                    numberOfHours=schoolClass.getProfile().getAdvancedSubjects().get(subject.getName())[0];//TODO array index depends on class year
+                }
+                Teacher teacher= teachers.stream().filter(teacher1 ->
+                        teacher1.getTeachingSubject().getName().equals(subject.getName())).min(numberOfTeachingLessonComparator).get();
+                teacher.increaseNumberOfTeachingClass();
+                subjectRealizations.add(new SubjectRealization(subjectRealizations.size()+1,teacher,schoolClass,subject,realizationMode,numberOfHours));
+            });
+        });
+
+
+        return subjectRealizations;
+    }
 
     private void generateSubjectList() {
         subjectList = new ArrayList<>();
@@ -109,5 +131,9 @@ public class School {
 
     public List<SchoolClass> getSchoolClassList() {
         return schoolClassList;
+    }
+
+    public List<SubjectRealization> getSubjectRealizationList() {
+        return subjectRealizationList;
     }
 }
