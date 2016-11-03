@@ -17,6 +17,7 @@ public class School {
     private List<Teacher> teacherList;
     private List<SchoolClass> schoolClassList;
     private List<SubjectRealization> subjectRealizationList;
+    private List<Student> studentList;
     private Set<Pesel> pesels;
     private PersonalDataGenerator personalDataGenerator;
 
@@ -29,6 +30,7 @@ public class School {
         teacherList=generateTeacherListAddThemToPesels(this.subjectList, pesels, personalDataGenerator);
         schoolClassList=generateSchoolClasses(profilesList,2013);
         subjectRealizationList=generateSubjectRealizationList(subjectList,teacherList,schoolClassList);
+        studentList=generateStudentListAddThemToPesels(personalDataGenerator,schoolClassList,pesels);
 
     }
     private List<Teacher> generateTeacherListAddThemToPesels(final List<Subject> subjectList, Set<Pesel> pesels,final PersonalDataGenerator personalDataGenerator){
@@ -115,6 +117,19 @@ public class School {
         getSubjectList().add(new Subject("Informatyka", "język polski"));
         getSubjectList().add(new Subject("Deutsch", "język niemiecki"));
         getSubjectList().add(new Subject("русский", "język rosyjski"));
+    }
+    private List<Student> generateStudentListAddThemToPesels(final PersonalDataGenerator personalDataGenerator, final List<SchoolClass> schoolClasses, Set<Pesel> pesels){
+        ArrayList<Student> students = new ArrayList<>(700);
+        schoolClasses.forEach(schoolClass ->{
+            for(int i=0; i<schoolClass.getStudentsNumber();i++){
+                Student addedStudent=new Student(personalDataGenerator,schoolClass);
+                if(pesels.contains(addedStudent.getPesel()))
+                    i--;
+                else
+                    students.add(addedStudent);
+            }
+        });
+        return students;
     }
 
     public List<Subject> getSubjectList() {
