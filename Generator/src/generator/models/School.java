@@ -52,7 +52,6 @@ public class School {
        int schoolClassId=1;
        for (;startYearOfGenerating<=actualSchoolYear;startYearOfGenerating++){
            int numberOfClassOnYear=random.nextInt(3)+5;
-           System.out.println(numberOfClassOnYear);
            char className='A';
            Iterator profileIterator=profilesList.iterator();
            for(int i=0; i<numberOfClassOnYear;i++){

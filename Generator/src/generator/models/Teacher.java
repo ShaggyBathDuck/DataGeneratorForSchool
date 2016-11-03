@@ -11,14 +11,13 @@ import java.util.Random;
 public class Teacher extends Person {
     private String academicDegree;
     private LocalDate jobStart;
-    private int minAge;
+    private final static int MIN_TEACHER_AGE=23;
+    private final static int MAX_TEACHER_AGE=67;
     Random random = new Random();
     public Teacher(PersonalDataGenerator pdGenerator) {
-        super(23,67,pdGenerator);
-        minAge=27;
-        academicDegree = generateAcademicDegree();
+        super(MIN_TEACHER_AGE,MAX_TEACHER_AGE,pdGenerator);
+        academicDegree = generateAcademicDegree(LocalDate.now().getYear()-this.getDayOfBirth().getYear());
         jobStart=generateJobStart();
-
     }
 
     public String getAcademicDegree() {
@@ -37,29 +36,25 @@ public class Teacher extends Person {
         this.jobStart = jobStart;
     }
 
-    private String generateAcademicDegree(){
+    private String generateAcademicDegree(int teacherAge){
         int chancesForTitle=random.nextInt(100);
-        if(chancesForTitle<50){
-            minAge=23;
-            return "licencjat";
-        }
-        else if(chancesForTitle <70){
-            minAge=23;
-            return "inżynier";
-        }
-        else if(chancesForTitle<85) {
-            minAge = 25;
-            return "magister";
-        }
-        else if(chancesForTitle<93)
-            return "doktor";
-        else if(chancesForTitle<98)
-            return "doktor habilitowany";
-        else
+        if(teacherAge>30 && chancesForTitle<1)
             return "profesor";
+        else if(teacherAge>26 && chancesForTitle<4)
+            return "doktor habilitowany";
+        else if(teacherAge>26 && chancesForTitle<10)
+            return "doktor";
+        else if(teacherAge>24 && chancesForTitle<20)
+            return "magister inżynier";
+        else if(teacherAge>24 && chancesForTitle<35)
+            return "magister";
+        else if(chancesForTitle<55)
+            return "inżynier";
+        else
+            return "licencjat";
     }
     private LocalDate generateJobStart(){
-        int minimumYear=this.getDayOfBirth().getYear()+minAge;
+        int minimumYear=this.getDayOfBirth().getYear()+MIN_TEACHER_AGE;
         int year=random.nextInt(LocalDate.now().getYear()-minimumYear)+minimumYear;
         return LocalDate.of(year,9,1);
     }
