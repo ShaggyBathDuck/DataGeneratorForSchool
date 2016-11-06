@@ -84,4 +84,25 @@ public class SchoolClass {
                 ", profile=" + profile +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SchoolClass that = (SchoolClass) o;
+
+        if (ID != that.ID) return false;
+        if (startYear != that.startYear) return false;
+        return name == that.name;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ID;
+        result = 31 * result + startYear;
+        result = 31 * result + (int) name;
+        return result;
+    }
 }
