@@ -2,6 +2,7 @@ package generator.models;
 
 import generator.DataReader;
 import generator.PersonalDataGenerator;
+import generator.models.entities.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -20,6 +21,7 @@ public class School {
     private List<Student> studentList;
     private Set<Pesel> pesels;
     private PersonalDataGenerator personalDataGenerator;
+    private static final int NUMBER_OF_YEARS=3;
 
 
     public School() {
@@ -82,18 +84,21 @@ public class School {
         Random random= new Random();
         Comparator<Teacher> numberOfTeachingLessonComparator=(t1,t2)->Integer.compare(t1.getNumberOfTeachingClass(), t2.getNumberOfTeachingClass());
         schoolClasses.forEach(schoolClass -> {
-            subjects.forEach(subject -> {
-                String realizationMode="podstawowy";
-                int numberOfHours=random.nextInt(3)+2;
-                if(schoolClass.getProfile().getAdvancedSubjects().containsKey(subject.getName())){
-                    realizationMode="rozszerzony";
-                    numberOfHours=schoolClass.getProfile().getAdvancedSubjects().get(subject.getName())[0];//TODO array index depends on class year
+            for (int schoolClassYear=schoolClass.getStartYear();schoolClassYear<=NUMBER_OF_YEARS && schoolClassYear<=(LocalDate.now().getYear()- (LocalDate.now().getMonthValue()>9?1:0)) ;schoolClassYear++){
+                for(Subject subject: subjects){
+                    String realizationMode="podstawowy";
+                    int numberOfHours=random.nextInt(3)+2;
+                    if(schoolClass.getProfile().getAdvancedSubjects().containsKey(subject.getName())){
+                        realizationMode="rozszerzony";
+                        numberOfHours=schoolClass.getProfile().getAdvancedSubjects().get(subject.getName())[schoolClassYear-schoolClass.getStartYear()];
+                    }
+                    Teacher teacher= teachers.stream().filter(teacher1 ->
+                            teacher1.getTeachingSubject().getName().equals(subject.getName())).min(numberOfTeachingLessonComparator).get();
+                    teacher.increaseNumberOfTeachingClass();
+
+                    subjectRealizations.add(new SubjectRealization(subjectRealizations.size()+1,teacher,schoolClass,subject,realizationMode,numberOfHours, schoolClassYear));
                 }
-                Teacher teacher= teachers.stream().filter(teacher1 ->
-                        teacher1.getTeachingSubject().getName().equals(subject.getName())).min(numberOfTeachingLessonComparator).get();
-                teacher.increaseNumberOfTeachingClass();
-                subjectRealizations.add(new SubjectRealization(subjectRealizations.size()+1,teacher,schoolClass,subject,realizationMode,numberOfHours));
-            });
+            }
         });
 
 

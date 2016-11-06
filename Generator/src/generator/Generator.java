@@ -1,11 +1,11 @@
 package generator;
 
 import generator.models.*;
+import generator.models.entities.Subject;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 /**
  *

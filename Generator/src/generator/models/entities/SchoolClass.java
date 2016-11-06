@@ -1,16 +1,20 @@
-package generator.models;
+package generator.models.entities;
+
+import java.util.Arrays;
 
 /**
  *
  * @author Bartosz
  */
 public class SchoolClass {
-    
     private int ID;
     private int studentsNumber;
     private int startYear;
     private char name;
     private Profile profile;
+    private boolean[][] lessonsAtSchedule;
+    private final static int NUMBER_OF_SCHOOL_LESSONS=8;
+    private final static int NUMBER_OF_SCHOOL_DAYS=5;
 
     public SchoolClass(int ID, int studentsNumber, int startYear, char name, Profile profile) {
         this.ID = ID;
@@ -18,6 +22,8 @@ public class SchoolClass {
         this.startYear = startYear;
         this.name = name;
         this.profile = profile;
+        lessonsAtSchedule = new boolean[NUMBER_OF_SCHOOL_LESSONS][NUMBER_OF_SCHOOL_DAYS];
+        Arrays.fill(lessonsAtSchedule,false);
     }
 
     public int getID() {
@@ -58,6 +64,14 @@ public class SchoolClass {
     
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public boolean isLessonAtSchedule(int schoolHour, int dayOfWeek){
+        return lessonsAtSchedule[schoolHour][dayOfWeek];
+    }
+
+    public void setLessonAtSchedule(int schoolHour, int dayOfWeek){
+        lessonsAtSchedule[schoolHour][dayOfWeek]=true;
     }
 
     @Override

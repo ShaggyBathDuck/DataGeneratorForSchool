@@ -1,6 +1,7 @@
-package generator.models;
+package generator.models.entities;
 
 import generator.PersonalDataGenerator;
+import generator.models.Person;
 
 import java.time.LocalDate;
 

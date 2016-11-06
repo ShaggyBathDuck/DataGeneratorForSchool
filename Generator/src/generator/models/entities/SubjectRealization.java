@@ -1,4 +1,4 @@
-package generator.models;
+package generator.models.entities;
 
 /**
  * Created by Dawid on 2016-10-30.
@@ -10,14 +10,16 @@ public class SubjectRealization {
     private Subject subject;
     private String realizationMode;
     private int numberOfHours;
+    private int yearOfRealization;
 
-    public SubjectRealization(int ID, Teacher teacher, SchoolClass schoolClass, Subject subject, String realizationMode, int numberOfHours) {
+    public SubjectRealization(int ID, Teacher teacher, SchoolClass schoolClass, Subject subject, String realizationMode, int numberOfHours, int yearOfRealization) {
         this.ID = ID;
         this.teacher = teacher;
         this.schoolClass = schoolClass;
         this.subject = subject;
         this.realizationMode = realizationMode;
         this.numberOfHours = numberOfHours;
+        this.yearOfRealization=yearOfRealization;
     }
 
     public int getID() {
@@ -66,6 +68,14 @@ public class SubjectRealization {
 
     public void setNumberOfHours(int numberOfHours) {
         this.numberOfHours = numberOfHours;
+    }
+
+    public int getYearOfRealization() {
+        return yearOfRealization;
+    }
+
+    public void setYearOfRealization(int yearOfRealization) {
+        this.yearOfRealization = yearOfRealization;
     }
 
     @Override
