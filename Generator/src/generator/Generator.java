@@ -1,7 +1,8 @@
 package generator;
 
-import generator.models.School;
-import generator.models.Subject;
+import generator.models.*;
+import generator.models.entities.Subject;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -12,11 +13,8 @@ import java.io.PrintStream;
  */
 public class Generator {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        
-        School school = new School();
-        generateSQLCreate();
-        generateSQLInsert(school);
+    public static void main(String[] args) throws FileNotFoundException{
+
     }
     
     private static void generateSQLCreate() throws FileNotFoundException{
